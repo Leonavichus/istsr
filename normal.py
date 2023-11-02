@@ -1,13 +1,11 @@
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import scipy.stats as sts
 
 mu = 12
-sigma = 0.5
+sigma = 2.7
+sample_size = 50
 
-x = np.random.normal(mu, sigma, 50)
-x.sort()
+# Генерация выборки
+sample = np.random.normal(mu, sigma, sample_size)
 
-plt.plot (x, sts.norm.pdf(x, mu, sigma), label='μ:0, σ: 2')
-plt.show()
+# Вывод выборки
+print(sample)

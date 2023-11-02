@@ -1,10 +1,10 @@
 import numpy as np
 
-lambda_param = 3.5
+lambda_param = 1.5
 sample_size = 50
 
 # Генерация выборки
-sample = np.random.poisson(lambda_param, sample_size)
+sample = np.random.exponential(scale=1/lambda_param, size=sample_size)
 
 # Вывод выборки
 print(sample)
