@@ -31,38 +31,52 @@ print('Доверительный интервал для дисперсии (95
 plt.figure(figsize=(14, 10))
 
 # Гистограмма
-plt.subplot(2, 3, 1)
+plt.subplot(3, 3, 1)
 sns.histplot(sample, kde=True)
 plt.title('Гистограмма')
 plt.xlabel('Значение')
 plt.ylabel('Частота')
 
 # Полигон
-plt.subplot(2, 3, 2)
+plt.subplot(3, 3, 2)
 sns.kdeplot(sample, cumulative=False)
 plt.title('Полигон')
 plt.xlabel('Значение')
 plt.ylabel('Плотность')
 
 # Кумулянта
-plt.subplot(2, 3, 3)
+plt.subplot(3, 3, 3)
 sns.kdeplot(sample, cumulative=True)
 plt.title('Кумулянта')
 plt.xlabel('Значение')
 plt.ylabel('Вероятность')
 
 # Ящик с усами
-plt.subplot(2, 3, 4)
+plt.subplot(3, 3, 4)
 sns.boxplot(sample)
 plt.title('Ящик с усами')
 plt.xlabel('Значение')
 
-# Q-Q Plot
-plt.subplot(2, 3, 5)
-stats.probplot(sample, plot=plt)
-plt.title('Q-Q Plot')
+# Q-Q Plot norm
+plt.subplot(3, 3, 5)
+stats.probplot(sample, dist='norm', plot=plt)
+plt.title('Q-Q Plot-norm')
 plt.xlabel('Теоретические квантили')
 plt.ylabel('Выборочные квантили')
+
+# Q-Q Plot expon
+plt.subplot(3, 3, 6)
+stats.probplot(sample, dist='expon', plot=plt)
+plt.title('Q-Q Plot-expon')
+plt.xlabel('Теоретические квантили')
+plt.ylabel('Выборочные квантили')
+
+# Эмпирическая функция распределения
+plt.subplot(3, 3, 7)
+sns.ecdfplot(sample)
+plt.title('Эмпирическая функция распределения')
+plt.xlabel('Значение')
+plt.ylabel('Вероятность')
 
 plt.tight_layout()
 plt.show()
