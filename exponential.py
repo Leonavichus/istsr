@@ -107,9 +107,7 @@ formula_sturge = 1 + 1.4 * np.log(len(sample))
 print('Формула Стерджа:', formula_sturge)
 
 # Создаем массив и заполняем его значениями
-limits = [i * step for i in range(8)]
-
-print(limits)
+limits = np.arange(0, amax + step, step)
 
 # Инициализация массива для хранения количества чисел между элементами
 counts = []

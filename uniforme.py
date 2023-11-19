@@ -108,3 +108,61 @@ print('Шаг:', step)
 # Формула Стерджа
 formula_sturge = 1 + 1.4 * np.log(len(sample))
 print('Формула Стерджа:', formula_sturge)
+
+# Создание массива
+stats_value = amin - step / 2
+limits = np.arange(stats_value, amax + step, step)
+
+# Инициализация массива для хранения количества чисел между элементами
+counts = []
+
+# Учет чисел между нулем и первым элементом второго массива
+selected_elements = sample[(sample >= 0) & (sample <= limits[0])]
+counts.append(len(selected_elements))
+
+# Перебор элементов второго массива
+for i in range(len(limits) - 1):
+    # Выбор элементов из первого массива, которые лежат между соответствующими элементами второго массива
+    selected_elements = sample[(sample > limits[i])
+                               & (sample <= limits[i + 1])]
+
+    # Запись количества выбранных элементов в массив
+    counts.append(len(selected_elements))
+
+x1 = limits[:-1]
+x2 = limits[1:]
+
+fx1 = []
+for x in x1:
+    if x < est_a:
+        fx1.append(0)
+    elif x > est_b:
+        fx1.append(1)
+    else:
+        fx1.append((x - est_a) / (est_b - est_a))
+
+fx2 = []
+for x in x2:
+    if x < est_a:
+        fx2.append(0)
+    elif x > est_b:
+        fx2.append(1)
+    else:
+        fx2.append((x - est_a) / (est_b - est_a))
+
+p = np.array(fx2) - np.array(fx1)
+theor_frequency = [x * len(sample) for x in p]
+
+df = pd.DataFrame({
+    'x(i)': list(x1),
+    'x(i+1)': list(x2),
+    'Частота импер': list(counts[1:]),
+    'F(x(i))': list(fx1),
+    'F(x(i+1))': list(fx2),
+    'P': list(p),
+    'Частота теор': list(theor_frequency),
+})
+
+print(df)
+
+print('Сумма:', sum(theor_frequency))
