@@ -136,7 +136,7 @@ theor_frequency = [x * len(sample) for x in p]
 df = pd.DataFrame({
     'x(i)': list(x1),
     'x(i+1)': list(x2),
-    'Частота импер': list(counts[1:]),
+    'Частота эмпир': list(counts[1:]),
     'F(x(i))': list(fx1),
     'F(x(i+1))': list(fx2),
     'P': list(p),

@@ -117,7 +117,7 @@ limits = np.arange(stats_value, amax + step, step)
 counts = []
 
 # Учет чисел между нулем и первым элементом второго массива
-selected_elements = sample[(sample >= 0) & (sample <= limits[0])]
+selected_elements = sample[(sample >= stats_value) & (sample <= limits[0])]
 counts.append(len(selected_elements))
 
 # Перебор элементов второго массива
@@ -156,7 +156,7 @@ theor_frequency = [x * len(sample) for x in p]
 df = pd.DataFrame({
     'x(i)': list(x1),
     'x(i+1)': list(x2),
-    'Частота импер': list(counts[1:]),
+    'Частота эмпир': list(counts[1:]),
     'F(x(i))': list(fx1),
     'F(x(i+1))': list(fx2),
     'P': list(p),

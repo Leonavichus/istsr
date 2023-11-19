@@ -91,3 +91,63 @@ plt.show()
 print()
 
 # Оценка параметров нормального распределения
+amin = np.amin(sample)
+amax = np.amax(sample)
+avg = np.mean(sample)
+st_deviation = np.std(sample)
+
+# Оценка a, s
+est_a = avg
+est_s = st_deviation
+print('Оценка a:', est_a)
+print('Оценка s:', est_s)
+
+# Шаг
+step = (amax - amin) / 6
+print('Шаг:', step)
+
+# Формула Стерджа
+formula_sturge = 1 + 1.4 * np.log(len(sample))
+print('Формула Стерджа:', formula_sturge)
+
+# Создание массива
+stats_value = amin - step / 2
+limits = np.arange(stats_value, amax + step, step)
+
+# Инициализация массива для хранения количества чисел между элементами
+counts = []
+
+# Учет чисел между нулем и первым элементом второго массива
+selected_elements = sample[(sample >= stats_value) & (sample <= limits[0])]
+counts.append(len(selected_elements))
+
+# Перебор элементов второго массива
+for i in range(len(limits) - 1):
+    # Выбор элементов из первого массива, которые лежат между соответствующими элементами второго массива
+    selected_elements = sample[(sample > limits[i])
+                               & (sample <= limits[i + 1])]
+
+    # Запись количества выбранных элементов в массив
+    counts.append(len(selected_elements))
+
+x1 = limits[:-1]
+x2 = limits[1:]
+
+fx1 = [stats.norm.cdf(x, est_a, est_s) for x in x1]
+fx2 = [stats.norm.cdf(x, est_a, est_s) for x in x2]
+p = np.array(fx2) - np.array(fx1)
+theor_frequency = [x * len(sample) for x in p]
+
+df = pd.DataFrame({
+    'x(i)': list(x1),
+    'x(i+1)': list(x2),
+    'Частота эмпир': list(counts[1:]),
+    'F(x(i))': list(fx1),
+    'F(x(i+1))': list(fx2),
+    'P': list(p),
+    'Частота теор': list(theor_frequency),
+})
+
+print(df)
+
+print('Сумма:', sum(theor_frequency))
