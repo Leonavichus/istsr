@@ -110,7 +110,7 @@ probability = []
 for element, frequency in frequency_dict.items():
     probability.append(stats.poisson.pmf(element, est_lambda))
 
-theor_frequency = [round(x * 50) for x in probability]
+theor_frequency = [round(x * len(sample)) for x in probability]
 
 df = pd.DataFrame({
     'Значение': list(frequency_dict.keys()),
