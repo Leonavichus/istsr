@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import seaborn as sns
 import scipy.stats as stats
 import matplotlib.pyplot as plt
@@ -8,6 +9,10 @@ sample_size = 50
 
 # Генерация выборки
 sample = np.random.exponential(scale=1/lambda_param, size=sample_size)
+
+print(sample)
+
+# Часть 1
 
 # Описательная статистика
 print('Описательная статистика:')
@@ -80,3 +85,29 @@ plt.ylabel('Вероятность')
 
 plt.tight_layout()
 plt.show()
+
+# Часть 2
+print()
+
+# Оценка параметров показательного распределения
+amin = np.amin(sample)
+amax = np.amax(sample)
+avg = np.mean(sample)
+
+# Оценка mu
+est_mu = 1 / avg
+print('Оценка mu:', est_mu)
+
+# Шаг
+step = (amax - amin) / 6
+print('Шаг:', step)
+
+# Формула Стерджа
+formula_sturge = 1 + 1.4 * np.log(len(sample))
+print('Формула Стерджа:', formula_sturge)
+
+# Создаем массив и заполняем его значениями
+start_value = 0
+limits = [start_value + i * step for i in range(7)]
+
+print(limits)

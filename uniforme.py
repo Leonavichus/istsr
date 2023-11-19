@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import seaborn as sns
 import scipy.stats as stats
 import matplotlib.pyplot as plt
@@ -9,6 +10,10 @@ sample_size = 50
 
 # Генерация выборки
 sample = np.random.uniform(low=a, high=b, size=sample_size)
+
+print(sample)
+
+# Часть 1
 
 # Описательная статистика
 print('Описательная статистика:')
@@ -81,3 +86,25 @@ plt.ylabel('Вероятность')
 
 plt.tight_layout()
 plt.show()
+
+# Часть 2
+print()
+
+# Оценка параметров равномерного распределения
+amin = np.amin(sample)
+amax = np.amax(sample)
+avg = np.mean(sample)
+
+# Оценка a, b
+est_a = amin
+est_b = amax
+print('Оценка a:', est_a)
+print('Оценка b:', est_b)
+
+# Шаг
+step = (amax - amin) / 6
+print('Шаг:', step)
+
+# Формула Стерджа
+formula_sturge = 1 + 1.4 * np.log(len(sample))
+print('Формула Стерджа:', formula_sturge)

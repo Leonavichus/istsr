@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import seaborn as sns
 import scipy.stats as stats
 import matplotlib.pyplot as plt
@@ -8,6 +9,10 @@ sample_size = 50
 
 # Генерация выборки
 sample = np.random.poisson(lam=lambda_param, size=sample_size)
+
+print(sample)
+
+# Часть 1
 
 # Описательная статистика
 print('Описательная статистика:')
@@ -80,3 +85,40 @@ plt.ylabel('Вероятность')
 
 plt.tight_layout()
 plt.show()
+
+# Часть 2
+print()
+
+# Оценка параметров пуассоновского распределения
+amin = np.amin(sample)
+amax = np.amax(sample)
+avg = np.mean(sample)
+
+# Оценка lambda
+est_lambda = avg
+print('Оценка lambda:', est_lambda)
+
+# Используйте функцию unique() для получения уникальных элементов и их частот
+unique_elements, counts = np.unique(sample, return_counts=True)
+
+# Создайте словарь, чтобы связать уникальные элементы с их частотами
+frequency_dict = dict(zip(unique_elements, counts))
+
+print()
+
+probability = []
+for element, frequency in frequency_dict.items():
+    probability.append(stats.poisson.pmf(element, est_lambda))
+
+theor_frequency = [round(x * 50) for x in probability]
+
+df = pd.DataFrame({
+    'Значение': list(frequency_dict.keys()),
+    'Частота': list(frequency_dict.values()),
+    'Вероятность': list(probability),
+    'Теоретическая частота': list(theor_frequency),
+})
+
+print(df)
+
+print('Сумма:', sum(theor_frequency))

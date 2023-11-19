@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import seaborn as sns
 import scipy.stats as stats
 import matplotlib.pyplot as plt
@@ -9,6 +10,10 @@ sample_size = 50
 
 # Генерация выборки
 sample = np.random.normal(loc=mu, scale=sigma, size=sample_size)
+
+print(sample)
+
+# Часть 1
 
 # Описательная статистика
 print('Описательная статистика:')
@@ -81,3 +86,8 @@ plt.ylabel('Вероятность')
 
 plt.tight_layout()
 plt.show()
+
+# Часть 2
+print()
+
+# Оценка параметров нормального распределения
