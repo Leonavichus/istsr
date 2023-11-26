@@ -34,6 +34,8 @@ print('Счет:', len(sample))
 print('Доверительный интервал для дисперсии (95,0%):',  stats.t.interval(confidence=0.95, df=len(sample)-1,
       loc=np.var(sample), scale=2*np.var(sample)/len(sample)))
 
+print()
+
 plt.figure(figsize=(14, 10))
 
 # Гистограмма
@@ -45,7 +47,7 @@ plt.ylabel('Частота')
 
 # Полигон
 plt.subplot(3, 3, 2)
-sns.kdeplot(sample, cumulative=False)
+sns.kdeplot(sample, cumulative=False, fill=True)
 plt.title('Полигон')
 plt.xlabel('Значение')
 plt.ylabel('Плотность')
@@ -151,3 +153,23 @@ df = pd.DataFrame({
 print(df)
 
 print('Сумма:', sum(theor_frequency))
+
+
+def cs(n, y):
+    return stats.chisquare(n, np.sum(n)/np.sum(y) * y)
+
+
+observed = np.array(counts[1:])
+expected = np.array(theor_frequency)
+
+chi2, p_value = cs(observed, expected)
+
+# Вывод результатов
+print(f'Хи-квадрат: {chi2}')
+print(f'p-значение: {p_value}')
+
+# Проверка гипотезы
+alpha = 0.05
+print(f'Уровень значимости: {alpha}')
+print(
+    f'Гипотеза о нормальном распределении: {"принимается" if p_value > alpha else "отвергается"}')
