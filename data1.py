@@ -165,3 +165,13 @@ alpha = 0.05
 print(f'Уровень значимости: {alpha}')
 print(
     f'Гипотеза о нормальном распределении: {"принимается" if p_value > alpha else "отвергается"}')
+
+statistic, p_value2 = stats.f_oneway(observed, expected)
+
+# Вывод результатов
+print("F-статистика:", statistic)
+print("p-значение:", p_value2)
+
+# Проверка наличия статистической значимости
+print(
+    f'Гипотеза о нормальном распределении: {"принимается" if p_value2 > alpha else "отвергается"}')
